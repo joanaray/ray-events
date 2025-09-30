@@ -64,6 +64,7 @@ if (!file_exists(WP_PLUGIN_DIR . '/advanced-custom-fields/acf.php')) {
 function ray_events_scripts()
 {
     wp_enqueue_style('bootstrap', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css');
+    wp_enqueue_style('bootstrap-icons', 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css');
     wp_enqueue_style('ray-events-styles', plugins_url('/assets/css/ray-events-styles.css', __FILE__));
 }
 add_action('wp_enqueue_scripts', 'ray_events_scripts');
@@ -163,6 +164,11 @@ function upcoming_events_shortcode($atts = [])
             $image_alt = get_post_meta($image_id, '_wp_attachment_image_alt', TRUE);
             $image_title = get_the_title($image_id);
 
+            // ACF fields
+            $data = get_field('data_evento');
+            $local = get_field('local_evento');
+            $organizacao = get_field('organizador_evento');
+
             $content .= '
             <div class="card ">
                 <div class="card-body d-flex flex-column">
@@ -173,8 +179,24 @@ function upcoming_events_shortcode($atts = [])
                 $content .= '<img src="' . $backup_img . '" alt="Photo by Josh Sorenson: group of people raise their hands on stadium" title="Photo by Josh Sorenson" class="card-img-top object-fit-cover"/>';
             }
             $content .= '</figure>
-                    <h3 class="card-title">' . esc_html(get_the_title()) . '</h3>
-                    <p class="lead flex-grow-1">' . get_field('data_evento') . '</p>
+                    <h3 class="card-title">' . esc_html(get_the_title()) . '</h3>';
+            if (!empty($data) || !empty($local) || !empty($organizacao)) {
+                $content .= '<ul class="p-0 list-unstyled flex-grow-1">';
+                if (!empty($data)) {
+                    $content .= '<li class="lead m-0 mb-1"><i class="bi bi-calendar"></i> ' . $data . '</li>';
+                }
+                ;
+                if (!empty($local)) {
+                    $content .= '<li class="lead m-0 mb-1"><i class="bi bi-geo-alt"></i> ' . $local . '</li>';
+                }
+                ;
+                if (!empty($organizacao)) {
+                    $content .= '<li class="lead m-0 mb-1"><i class="bi bi-person-square"></i> ' . $organizacao . '</li>';
+                }
+                ;
+                $content .= '</ul>';
+            }
+            $content .= '
                     <a href=' . esc_url(get_the_permalink()) . ' class="btn btn-primary">' . __('More info', 'ray_events') . '</a>
                 </div>
             </div>';

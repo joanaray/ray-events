@@ -25,14 +25,11 @@ if (have_posts()):
                         <h2 class="m-0 h5"><?php _e('Sobre este evento', 'ray_events') ?></h2>
                         <ul class="d-flex p-0 list-unstyled gap-3 m-0">
                             <?php if (!empty($data)) { ?>
-                                <li><?php _e('Date: ', 'ray_events');
-                                echo $data; ?></li><?php } ?>
+                                <li><i class="bi bi-calendar"></i> <?php echo $data; ?></li><?php } ?>
                             <?php if (!empty($local)) { ?>
-                                <li><?php _e('Location: ', 'ray_events');
-                                echo $local; ?></li><?php } ?>
+                                <li><i class="bi bi-geo-alt"></i> <?php echo $local; ?></li><?php } ?>
                             <?php if (!empty($organizacao)) { ?>
-                                <li><?php _e('Organiser: ', 'ray_events');
-                                echo $organizacao ?></li><?php } ?>
+                                <li><i class="bi bi-person-square"></i> <?php echo $organizacao ?></li><?php } ?>
                         </ul>
                     </div>
                 <?php } ?>
