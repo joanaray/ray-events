@@ -22,7 +22,7 @@ if (have_posts()):
                 if ($data || $local || $organizacao) {
                     ?>
                     <div class="d-flex gap-3 align-items-baseline mb-3">
-                        <h2 class="m-0 h5"><?php _e('Sobre este evento', 'ray_events') ?></h2>
+                        <h2 class="m-0 h5"><?php _e('Details: ', 'ray_events') ?></h2>
                         <ul class="d-flex p-0 list-unstyled gap-3 m-0">
                             <?php if (!empty($data)) { ?>
                                 <li><i class="bi bi-calendar"></i> <?php echo $data; ?></li><?php } ?>
